@@ -15,8 +15,10 @@ class Menu
             Console.WriteLine("1) Додати подію");
             Console.WriteLine("2) Показати список");
             Console.WriteLine("3) Перевірити конфлікти");
-            Console.WriteLine("4) Сортувати список");
-            Console.WriteLine("5) Видалити подію");
+            Console.WriteLine("4) Сортувати список за наближенням");
+            Console.WriteLine("5) Сортувати список за віддаленням");
+            Console.WriteLine("6) Видалити подію");
+            Console.WriteLine("7) Статистика");
             Console.WriteLine("0) Вихід");
 
             string choice = Console.ReadLine();
@@ -36,7 +38,13 @@ class Menu
                     manager.Sort();
                     break;
                 case "5":
+                    manager.DecreasingSort();
+                    break;
+                case "6":
                     manager.DeleteEventFromConsole();
+                    break;
+                case "7":
+                    Console.WriteLine(manager.GetReport());
                     break;
                 case "0":
                     return;
