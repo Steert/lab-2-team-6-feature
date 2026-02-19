@@ -6,6 +6,49 @@ namespace task.Tests;
 [TestFixture]
 public class ScheduleTests
 {
+////////////////// Unit tests ////////////////////    
+    
+    [Test]
+    public void AddEvent_IncreasesCount()
+    {
+        var manager = new ScheduleManager();
+
+        manager.AddEvent(new CalendarEvent("Пн", "A", 10, 20));
+
+        Assert.That(manager.count, Is.EqualTo(1));
+    }
+
+    [Test]
+    public void Test_IsConflict()
+    {
+        var event1 = new CalendarEvent("Пн", "C", 20, 35);
+        var event2 = new CalendarEvent("Пн", "D", 30, 40);
+        
+        bool isConflict = event1.ConflictsWith(event2);
+        
+        Assert.That(isConflict, Is.True);
+    }
+    
+    [Test]
+    public void Test_Report_Statistics()
+    {
+        var manager = new ScheduleManager();
+        
+        string report = manager.GetReport();
+        
+        Assert.That(report, Is.EqualTo("Всього подій: 0"));
+    }
+    
+    [Test]
+    public void GetDayPriority_ReturnsCorrectNumber()
+    {
+        int priority = ScheduleManager.GetDayPriority("середа");
+        
+        Assert.That(priority, Is.EqualTo(3)); 
+    }
+    
+//////////////// Integrtion tests ////////////////////    
+    
     [Test]
     public void Test_AddAndDelete()
     {
@@ -19,16 +62,6 @@ public class ScheduleTests
         Assert.That(manager.schedule[0].Description, Is.EqualTo("B"));
     }
     
-    [Test]
-    public void Test_Report_Statistics()
-    {
-        var manager = new ScheduleManager();
-        manager.AddEvent(new CalendarEvent("Пн", "Тест", 10, 20));
-        
-        string report = manager.GetReport();
-        
-        Assert.That(report, Is.EqualTo("Всього подій: 1"));
-    }
     
     [Test]
     public void Test_Invalid_Parameters()
@@ -66,5 +99,6 @@ public class ScheduleTests
         manager.Sort();
         
         Assert.That(manager.schedule[0].Day, Is.EqualTo("Понеділок"));
+        Assert.That(manager.schedule[1].Day, Is.EqualTo("Середа"));
     }
 }

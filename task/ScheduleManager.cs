@@ -7,7 +7,7 @@ using task.Comparer;
 public class ScheduleManager
 {
     public EventCollection schedule = new EventCollection();
-    public int count { get { return schedule.count; } set; }
+    public int count { get { return schedule.count; } }
 
     public bool AddEvent(CalendarEvent newEvent)
     {
